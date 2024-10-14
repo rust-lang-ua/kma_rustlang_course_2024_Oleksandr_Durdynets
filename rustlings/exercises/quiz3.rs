@@ -7,7 +7,7 @@
 // we expect to get when we call `times_two` with a negative number.
 // No hints, you can do this :)
 
-// I AM NOT DONE
+// I AM DONE
 
 pub fn is_even(num: i32) -> bool {
     num % 2 == 0

@@ -10,7 +10,7 @@
 //
 // Make the code compile and the tests pass.
 
-// I AM NOT DONE
+// I AM DONE
 
 use std::collections::HashMap;
 
@@ -21,6 +21,17 @@ enum Progress {
     Complete,
 }
 
+// Ітераторний підрахунок елементів у HashMap з заданим значенням
+fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
+    map.values().filter(|&&v| v == value).count()
+}
+
+// Ітераторний підрахунок елементів у колекції HashMap
+fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
+    collection.iter().map(|map| count_iterator(map, value)).sum()
+}
+
+// Імперативний підрахунок (залишається незмінним)
 fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
     let mut count = 0;
     for val in map.values() {
@@ -31,11 +42,7 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
     count
 }
 
-fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
-    // map is a hashmap with String keys and Progress values.
-    // map = { "variables1": Complete, "from_str": None, ... }
-}
-
+// Імперативний підрахунок для колекції (залишається незмінним)
 fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
     let mut count = 0;
     for map in collection {
@@ -46,12 +53,6 @@ fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progres
         }
     }
     count
-}
-
-fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
-    // collection is a slice of hashmaps.
-    // collection = [{ "variables1": Complete, "from_str": None, ... },
-    //     { "variables2": Complete, ... }, ... ]
 }
 
 #[cfg(test)]
