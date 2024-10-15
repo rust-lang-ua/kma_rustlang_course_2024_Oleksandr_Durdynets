@@ -7,7 +7,7 @@
 // Make this code compile! Execute `rustlings hint advanced_errs1` for
 // hints :)
 
-// I AM NOT DONE
+// I AM DONE
 
 use std::num::ParseIntError;
 use std::str::FromStr;
@@ -22,12 +22,15 @@ enum ParsePosNonzeroError {
 
 impl From<CreationError> for ParsePosNonzeroError {
     fn from(e: CreationError) -> Self {
-        // TODO: complete this implementation so that the `?` operator will
-        // work for `CreationError`
+        ParsePosNonzeroError::Creation(e)
     }
 }
 
-// TODO: implement another instance of the `From` trait here so that the
+impl From<ParseIntError> for ParsePosNonzeroError {
+    fn from(e: ParseIntError) -> Self {
+        ParsePosNonzeroError::ParseInt(e)
+    }
+}
 // `?` operator will work in the other place in the `FromStr`
 // implementation below.
 
@@ -35,6 +38,7 @@ impl From<CreationError> for ParsePosNonzeroError {
 
 impl FromStr for PositiveNonzeroInteger {
     type Err = ParsePosNonzeroError;
+
     fn from_str(s: &str) -> Result<PositiveNonzeroInteger, Self::Err> {
         let x: i64 = s.parse()?;
         Ok(PositiveNonzeroInteger::new(x)?)
